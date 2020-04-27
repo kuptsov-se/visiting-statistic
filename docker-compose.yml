@@ -1,0 +1,46 @@
+version: '3.0'
+
+services:
+
+  nginx:
+    container_name: nginx_visiting
+    image: nginx
+    volumes:
+      - ./etc/nginx/:/etc/nginx/conf.d/
+      - ${NGINX_SSL}:/etc/ssl
+      - ./visiting-statistic/:/var/www/visiting-statistic/
+    ports:
+      - ${NGINX_HTTP}:80
+      - ${NGINX_HTTPS}:443
+    environment:
+      - NGINX_HOST=${NGINX_HOST}
+    depends_on:
+      - php
+      - mysqldb
+    restart: always
+
+  php:
+    container_name: php_visiting
+    build:
+      context: ./etc/php/
+    restart: always
+    volumes:
+      - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./visiting-statistic:/var/www/visiting-statistic
+    ports:
+      - ${PHP_PORT}:9000
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    container_name: mysqldb_visiting
+    image: mysql:${MYSQL_VERSION}
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./data/db/mysql:/var/lib/mysql
+      - ./etc/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./log/mysql/:/var/log/mysql/
+      - ./log/mysql/:/var/lib/mysql-filess
