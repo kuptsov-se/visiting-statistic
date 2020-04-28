@@ -1,6 +1,6 @@
 <?php
 
-use App\Domain\User\UserFields;
+use App\Modules\Common\Domain\User\UserFields;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

@@ -23,7 +23,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+ $app->withFacades();
  $app->withEloquent();
 
 /*
@@ -47,6 +47,10 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+$app->bind(
+    \App\Modules\Statistic\Visiting\DataLayer\VisitsRepository::class,
+    \App\Modules\Statistic\Visiting\DataLayer\Eloquent\MySQLVisitsRepository::class
+);
 /*
 |--------------------------------------------------------------------------
 | Register Config Files
@@ -71,9 +75,10 @@ $app->configure('app');
 |
 */
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+ $app->routeMiddleware([
+     'auth' => App\Http\Middleware\Authenticate::class,
+     'visitor' => \App\Http\Middleware\Visitor::class,
+ ]);
 
 /*
 |--------------------------------------------------------------------------

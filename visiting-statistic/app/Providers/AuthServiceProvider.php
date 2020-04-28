@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Domain\User\User;
+use App\Modules\Common\Domain\User\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
