@@ -7,8 +7,21 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="{{ url('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <h1>Main page</h1>
+    <div id="app" class="container">
+        <visiting-statistic
+                total-all-visits="{{ $totalVisitingStatistic->getTotalVisitsNumber() }}"
+                total-unique-visits="{{ $totalVisitingStatistic->getTotalUniqueVisitsNumber() }}"
+                total-undefined-ip="{{ $totalVisitingStatistic->getUndefinedIpsNumber() }}"
+                today-all-visits="{{ $todayVisitingStatistic->getTotalVisitsNumber() }}"
+                today-unique-visits="{{ $todayVisitingStatistic->getTotalUniqueVisitsNumber() }}"
+                today-undefined-ip="{{ $todayVisitingStatistic->getUndefinedIpsNumber() }}"
+        >
+        </visiting-statistic>
+    </div>
 </body>
+<!-- Scripts -->
+<script src="{{ url('js/app.js') }}" defer></script>
 </html>
